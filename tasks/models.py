@@ -11,7 +11,7 @@ class Task(models.Model):
         ('high', '高'),
         ('urgent', '緊急'),
     ]
-    
+
     STATUS_CHOICES = [
         ('todo', '未着手'),
         ('in_progress', '進行中'),
@@ -19,7 +19,7 @@ class Task(models.Model):
         ('done', '完了'),
         ('cancelled', 'キャンセル'),
     ]
-    
+
     project = models.ForeignKey(
         Project,
         on_delete=models.CASCADE,
@@ -72,15 +72,15 @@ class Task(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='作成日時')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='更新日時')
-    
+
     class Meta:
         verbose_name = 'タスク'
         verbose_name_plural = 'タスク'
         ordering = ['-priority', '-created_at']
-    
+
     def __str__(self):
         return f"{self.project.name} - {self.title}"
-    
+
     @property
     def is_overdue(self):
         """期限超過かどうかを判定"""
@@ -105,13 +105,11 @@ class Comment(models.Model):
     )
     content = models.TextField(verbose_name='コメント')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='投稿日時')
-    
+
     class Meta:
         verbose_name = 'コメント'
         verbose_name_plural = 'コメント'
         ordering = ['-created_at']
-    
-    def __str__(self):
-        return f"{self.author.username} - {self.created_at.strftime('%Y-%m-%d %H:%M')}"from django.db import models
 
-# Create your models here.
+    def __str__(self):
+        return f"{self.author.username} - {self.created_at.strftime('%Y-%m-%d %H:%M')}"
